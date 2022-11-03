@@ -9,8 +9,7 @@ from typing import Optional
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import Axes, Figure
-import pygmsh
-import gmsh
+import pygalmesh
 from meshio._mesh import Mesh
 
 
@@ -54,26 +53,24 @@ class WaveBot:
         self.freeboard = freeboard
         self.gear_ratio = 12.47
 
-    def mesh(self, mesh_size_factor: Optional[float] = 0.1) -> Mesh:
+    def mesh(self, max_cell_circumradius: Optional[float] = 0.1) -> Mesh:
         """Generate surface mesh of hull.
 
         Parameters
         ----------
-        mesh_size_factor
-            Control for the mesh size. Smaller values give a finer mesh.
+        max_cell_circumradius
+            Upper bound of the circumradius allowed in each mesh element.
+            Lower values result in a finer mesh.
         """
-        with pygmsh.occ.Geometry() as geom:
-            gmsh.option.setNumber('Mesh.MeshSizeFactor', mesh_size_factor)
-            cyl = geom.add_cylinder([0, 0, 0],
-                                    [0, 0, -self.h1],
-                                    self.r1)
-            cone = geom.add_cone([0, 0, -self.h1],
-                                 [0, 0, -self.h2],
-                                 self.r1, self.r2)
-            geom.translate(cyl, [0, 0, self.freeboard])
-            geom.translate(cone, [0, 0, self.freeboard])
-            geom.boolean_union([cyl, cone])
-            mesh = geom.generate_mesh()
+
+        cyl = pygalmesh.Cylinder(0, -self.h1, self.r1, 0.1)
+        cone = pygalmesh.Cone(self.r1, -self.h1, 0.1)
+        cyl = pygalmesh.Translate(cyl, [0, 0, self.freeboard])
+        cone = pygalmesh.Translate(cone, [0, 0, self.freeboard])
+        combined_shape = pygalmesh.Union([cyl, cone])
+        mesh = pygalmesh.generate_mesh(
+            combined_shape,
+            max_cell_circumradius=max_cell_circumradius)
 
         return mesh
 
