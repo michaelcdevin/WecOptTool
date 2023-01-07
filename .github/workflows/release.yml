@@ -64,7 +64,6 @@ jobs:
       shell: bash -l {0}
       run: |
         cd docs
-        pip3 install numpy
         make linkcheck
         make html
         cd ../

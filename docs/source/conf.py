@@ -3,6 +3,7 @@ import sys
 import shutil
 
 import sphinx
+import numpy
 
 from wecopttool import __version__, __version_info__
 
