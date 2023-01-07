@@ -57,7 +57,7 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         pip3 install gmsh pygmsh
-        pip3 install coveralls pytest
+        pip3 install coveralls pytest charset-normalizer
         pip3 install .[dev,geometry]
 
     - name: Build documentation
@@ -68,8 +68,8 @@ jobs:
         make html
         cd ../
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+    # - name: Deploy
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./docs/_build/html
