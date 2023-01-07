@@ -58,6 +58,8 @@ jobs:
         python3 -m pip install --upgrade pip
         pip3 install gmsh pygmsh
         pip3 install coveralls pytest
+        pip3 uninstall charset-normalizer
+        pip3 install charset-normalizer -U
         pip3 install .[dev,geometry]
 
     - name: Build documentation
