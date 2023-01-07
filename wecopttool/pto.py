@@ -17,6 +17,15 @@ Contains:
 from __future__ import annotations
 
 
+__all__ = [
+    "PTO",
+    "controller_unstructured",
+    "controller_pid",
+    "controller_pi",
+    "controller_p",
+]
+
+
 from typing import Optional, TypeVar, Callable, Union
 
 import autograd.numpy as np
@@ -35,12 +44,12 @@ from wecopttool.core import TWEC, TStateFunction, FloatOrArray
 
 # type aliases
 TPTO = TypeVar("TPTO", bound="PTO")
-TEFF = Callable[[FloatOrArray, FloatOrArray], FloatOrArray]
+TLOSS = Callable[[FloatOrArray, FloatOrArray], FloatOrArray]
 
 
 class PTO:
     """A power take-off (PTO) object to be used in conjunction with a
-    :py:class:`wecopttool.core.WEC` object.
+    :py:class:`wecopttool.WEC` object.
     """
 
     def __init__(self,
@@ -48,20 +57,22 @@ class PTO:
         kinematics: Union[TStateFunction, ndarray],
         controller: Optional[TStateFunction] = None,
         impedance: Optional[ndarray] = None,
-        loss: Optional[TEFF] = None,
+        loss: Optional[TLOSS] = None,
         names: Optional[list[str]] = None,
     ) -> None:
         """Create a PTO object.
 
         The :py:class:`wecopttool.pto.PTO` class describes the
-        kinematics, control logic, impedance and/or non-=linear loss map
-        of a power take-off system. The forces/moments applied by a
+        kinematics, control logic, impedance and/or non-linear power
+        loss of a power take-off system.
+        The forces/moments applied by a
         :py:class:`wecopttool.pto.PTO` object can be applied to a
-        :py:class:`wecopttool.core.WEC` object through the
-        :python:`WEC.f_add` property. The power produced by a
-        :py:class:`wecopttool.pto.PTO` object can be used for the
-        :python:`obj_fun` of pseudo-spectral optimization problem when
-        calling :python:`WEC.solve`.
+        :py:class:`wecopttool.WEC` object through the
+        :py:attr:`wecopttool.WEC.f_add` property.
+        The power produced by a :py:class:`wecopttool.pto.PTO` object
+        can be used for the :python:`obj_fun` of pseudo-spectral
+        optimization problem when calling
+        :py:meth:`wecopttool.WEC.solve`.
 
         Parameters
         ----------
@@ -80,7 +91,9 @@ class PTO:
             Matrix representing the PTO impedance.
         loss
             Function that maps flow and effort variables to a
-            non-linear loss. Outputs are between 0-1.
+            non-linear power loss.
+            The output is the dissipated power (loss) in Watts.
+            This should be a positive value.
         names
             PTO names.
         """
@@ -114,7 +127,7 @@ class PTO:
 
         # power
         self._impedance = impedance
-        self._loss = loss  # TODO: change to 'loss'
+        self._loss = loss
         if impedance is not None:
             impedance_abcd = _make_abcd(impedance, ndof)
             self._transfer_mat = _make_mimo_transfer_mat(impedance_abcd, ndof)
@@ -148,8 +161,8 @@ class PTO:
         return self._impedance
 
     @property
-    def loss(self) -> TEFF:
-        """Nonlinear loss function."""
+    def loss(self) -> TLOSS:
+        """Nonlinear power loss function with outputs in Watts."""
         return self._loss
 
     @property
@@ -157,7 +170,7 @@ class PTO:
         """Transfer matrix."""
         return self._transfer_mat
 
-    def _tmat(self, wec: TWEC, nsubsteps: Optional[int] = 1):
+    def _tmat(self, wec, nsubsteps: Optional[int] = 1):
         if nsubsteps==1:
             tmat = wec.time_mat
         else:
@@ -165,7 +178,7 @@ class PTO:
         return tmat
 
     def _fkinematics(self,
-        f_wec,
+        f_wec: ndarray,
         wec: TWEC,
         x_wec: ndarray,
         x_opt: Optional[ndarray] = None,
@@ -179,7 +192,7 @@ class PTO:
         f_wec
             Fourier coefficients of some quantity "f" in the WEC frame.
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -211,7 +224,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -239,7 +252,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -268,7 +281,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -298,7 +311,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -314,7 +327,7 @@ class PTO:
         force_td = self.force(wec, x_wec, x_opt, waves, nsubsteps)
         assert force_td.shape == (wec.nt*nsubsteps, self.ndof)
         force_td = np.expand_dims(np.transpose(force_td), axis=0)
-        assert force_td.shape == (1, wec.ndof, wec.nt*nsubsteps)
+        assert force_td.shape == (1, self.ndof, wec.nt*nsubsteps)
         kinematics_mat = self.kinematics(wec, x_wec, x_opt, waves, nsubsteps)
         kinematics_mat = np.transpose(kinematics_mat, (1,0,2))
         return np.transpose(np.sum(kinematics_mat*force_td, axis=1))
@@ -332,7 +345,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -362,7 +375,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -391,7 +404,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -420,7 +433,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -433,30 +446,28 @@ class PTO:
             A value of :python:`1` corresponds to the default step
             length.
         """
-        # convert e1 (PTO force), q1 (PTO velocity) to e2,q2
+        # convert q1 (PTO velocity), e1 (PTO force) to q2, e2
         if self.impedance is not None:
-            e1_td = self.force(wec, x_wec, x_opt, waves)
             q1_td = self.velocity(wec, x_wec, x_opt, waves)
+            e1_td = self.force(wec, x_wec, x_opt, waves)
             q1 = complex_to_real(td_to_fd(q1_td, False))
             e1 = complex_to_real(td_to_fd(e1_td, False))
             vars_1 = np.hstack([q1, e1])
             vars_1_flat = dofmat_to_vec(vars_1)
             vars_2_flat = np.dot(self.transfer_mat, vars_1_flat)
             vars_2 = vec_to_dofmat(vars_2_flat, 2*self.ndof)
-            e2 = vars_2[:, self.ndof:]
             q2 = vars_2[:, :self.ndof]
+            e2 = vars_2[:, self.ndof:]
             time_mat = self._tmat(wec, nsubsteps)
-            e2_td = np.dot(time_mat, e2)
             q2_td = np.dot(time_mat, q2)
+            e2_td = np.dot(time_mat, e2)
         else:
-            # e1_td = self.force(wec, x_wec, x_opt, waves)
-            # q1_td = self.velocity(wec, x_wec, x_opt, waves)
-            e2_td = self.force(wec, x_wec, x_opt, waves, nsubsteps)
             q2_td = self.velocity(wec, x_wec, x_opt, waves, nsubsteps)
+            e2_td = self.force(wec, x_wec, x_opt, waves, nsubsteps)
         # power
-        power_out = e2_td * q2_td
+        power_out = q2_td * e2_td
         if self.loss is not None:
-            power_out = power_out * (1-self.loss(e2_td, q2_td))
+            power_out = power_out + self.loss(q2_td, e2_td)
         return power_out
 
     def energy(self,
@@ -472,7 +483,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -501,7 +512,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         x_wec
             WEC dynamic state.
         x_opt
@@ -528,8 +539,8 @@ class PTO:
 
         Examples
         --------
-        The :meth:`wecopttool.core.WEC.solve` method only returns the
-        post-processed results for the :py:class:`wecopttool.core.WEC`
+        The :py:meth:`wecopttool.WEC.solve` method only returns the
+        post-processed results for the :py:class:`wecopttool.WEC`
         object.
 
         >>> res_wec_fd, res_wec_td, res_opt = wec.solve(waves=wave,
@@ -551,7 +562,7 @@ class PTO:
         Parameters
         ----------
         wec
-            :py:class:`wecopttool.core.WEC` object.
+            :py:class:`wecopttool.WEC` object.
         res
             Results produced by :py:func:`scipy.optimize.minimize`.
         waves
@@ -569,6 +580,8 @@ class PTO:
         results_td
             :py:class:`xarray.Dataset` with time domain results.
         """
+        create_time = f"{datetime.utcnow()}"
+
         x_wec, x_opt = wec.decompose_state(res.x)
 
         # position
@@ -603,12 +616,13 @@ class PTO:
                       'units': 'N or Nm'}
         power_attr = {'long_name': 'Power', 'units': 'W'}
         mech_power_attr = {'long_name': 'Mechanical power', 'units': 'W'}
-        omega_attr = {'long_name': 'Frequency', 'units': 'rad/s'}
+        omega_attr = {'long_name': 'Radial frequency', 'units': 'rad/s'}
+        freq_attr = {'long_name': 'Frequency', 'units': 'Hz'}
+        period_attr = {'long_name': 'Period', 'units': 's'}
         dof_attr = {'long_name': 'PTO degree of freedom'}
         time_attr = {'long_name': 'Time', 'units': 's'}
 
         t_dat = wec.time_nsubsteps(nsubsteps)
-
 
         results_fd = Dataset(
             data_vars={
@@ -621,8 +635,10 @@ class PTO:
             },
             coords={
                 'omega':('omega', wec.omega, omega_attr),
+                'freq':('omega', wec.frequency, freq_attr),
+                'period':('omega', wec.period, period_attr),
                 'dof':('dof', self.names, dof_attr)},
-            attrs={"time_created_utc": f"{datetime.utcnow()}"}
+            attrs={"time_created_utc": create_time}
             )
 
         results_td = Dataset(
@@ -637,7 +653,7 @@ class PTO:
             coords={
                 'time':('time', t_dat, time_attr),
                 'dof':('dof', self.names, dof_attr)},
-            attrs={"time_created_utc": f"{datetime.utcnow()}"}
+            attrs={"time_created_utc": create_time}
             )
 
         return results_fd, results_td
@@ -655,8 +671,6 @@ def _make_abcd(impedance: ndarray, ndof: int) -> ndarray:
         Size 2*n_dof.
     ndof
         Number of degrees of freedom.
-        Must be specified if :python:`inertia_in_forces is True`, else
-        not used.
     """
     z_11 = impedance[:ndof, :ndof, :]  # Fu
     z_12 = impedance[:ndof, ndof:, :]  # Fi
@@ -684,8 +698,6 @@ def _make_mimo_transfer_mat(
         PTO impedance in ABCD form.
     ndof
         Number of degrees of freedom.
-        Must be specified if :python:`inertia_in_forces is True`, else
-        not used.
     """
     elem = [[None]*2*ndof for _ in range(2*ndof)]
     def block(re, im): return np.array([[re, -im], [im, re]])
@@ -717,7 +729,7 @@ def controller_unstructured(
     pto
         :py:class:`wecopttool.pto.PTO` object.
     wec
-        :py:class:`wecopttool.core.WEC` object.
+        :py:class:`wecopttool.WEC` object.
     x_wec
         WEC dynamic state.
     x_opt
@@ -754,7 +766,7 @@ def controller_pid(
     pto
         :py:class:`wecopttool.pto.PTO` object.
     wec
-        :py:class:`wecopttool.core.WEC` object.
+        :py:class:`wecopttool.WEC` object.
     x_wec
         WEC dynamic state.
     x_opt
@@ -774,7 +786,7 @@ def controller_pid(
         True to include derivative gain
     """
     ndof = pto.ndof
-    force_td = np.zeros([wec.nt, ndof])
+    force_td = np.zeros([wec.nt*nsubsteps, ndof])
     idx = 0
 
     def update_force_td(response):
@@ -811,7 +823,7 @@ def controller_pi(
     pto
         :py:class:`wecopttool.pto.PTO` object.
     wec
-        :py:class:`wecopttool.core.WEC` object.
+        :py:class:`wecopttool.WEC` object.
     x_wec
         WEC dynamic state.
     x_opt
@@ -845,7 +857,7 @@ def controller_p(
     pto
         :py:class:`wecopttool.pto.PTO` object.
     wec
-        :py:class:`wecopttool.core.WEC` object.
+        :py:class:`wecopttool.WEC` object.
     x_wec
         WEC dynamic state.
     x_opt
