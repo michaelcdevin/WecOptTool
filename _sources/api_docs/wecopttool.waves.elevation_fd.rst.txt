@@ -1,6 +1,0 @@
-wecopttool.waves.elevation\_fd
-==============================
-
-.. currentmodule:: wecopttool.waves
-
-.. autofunction:: elevation_fd

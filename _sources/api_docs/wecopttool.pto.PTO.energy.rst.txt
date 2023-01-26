@@ -1,6 +1,0 @@
-wecopttool.pto.PTO.energy
-=========================
-
-.. currentmodule:: wecopttool.pto
-
-.. automethod:: PTO.energy

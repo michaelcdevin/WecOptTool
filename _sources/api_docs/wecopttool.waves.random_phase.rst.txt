@@ -1,6 +1,0 @@
-wecopttool.waves.random\_phase
-==============================
-
-.. currentmodule:: wecopttool.waves
-
-.. autofunction:: random_phase
