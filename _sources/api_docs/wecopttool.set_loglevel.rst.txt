@@ -1,6 +1,0 @@
-wecopttool.set\_loglevel
-========================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: set_loglevel

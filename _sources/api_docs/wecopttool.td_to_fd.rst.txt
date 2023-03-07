@@ -1,6 +1,0 @@
-wecopttool.td\_to\_fd
-=====================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: td_to_fd

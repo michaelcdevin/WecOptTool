@@ -1,6 +1,0 @@
-wecopttool.metadata
-===================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: metadata

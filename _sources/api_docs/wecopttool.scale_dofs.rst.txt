@@ -1,6 +1,0 @@
-wecopttool.scale\_dofs
-======================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: scale_dofs

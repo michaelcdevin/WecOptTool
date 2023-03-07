@@ -1,6 +1,0 @@
-wecopttool.WEC.dt
-=================
-
-.. currentmodule:: wecopttool
-
-.. autoproperty:: WEC.dt

@@ -1,6 +1,0 @@
-wecopttool.subset\_close
-========================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: subset_close

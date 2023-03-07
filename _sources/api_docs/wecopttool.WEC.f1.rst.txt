@@ -1,6 +1,0 @@
-wecopttool.WEC.f1
-=================
-
-.. currentmodule:: wecopttool
-
-.. autoproperty:: WEC.f1

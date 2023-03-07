@@ -1,6 +1,0 @@
-wecopttool.read\_netcdf
-=======================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: read_netcdf

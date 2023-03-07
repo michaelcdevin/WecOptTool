@@ -1,6 +1,0 @@
-wecopttool.WEC.tf
-=================
-
-.. currentmodule:: wecopttool
-
-.. autoproperty:: WEC.tf

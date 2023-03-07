@@ -1,6 +1,0 @@
-wecopttool.WEC.from\_floating\_body
-===================================
-
-.. currentmodule:: wecopttool
-
-.. automethod:: WEC.from_floating_body

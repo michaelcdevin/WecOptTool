@@ -1,6 +1,0 @@
-wecopttool.complex\_to\_real
-============================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: complex_to_real
