@@ -1,6 +1,0 @@
-wecopttool.pto.PTO.ndof
-=======================
-
-.. currentmodule:: wecopttool.pto
-
-.. autoproperty:: PTO.ndof

@@ -1,6 +1,0 @@
-wecopttool.WEC.ncomponents
-==========================
-
-.. currentmodule:: wecopttool
-
-.. autoproperty:: WEC.ncomponents

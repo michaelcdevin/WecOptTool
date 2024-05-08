@@ -1,6 +1,0 @@
-wecopttool.time\_results
-========================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: time_results

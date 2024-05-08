@@ -1,6 +1,0 @@
-wecopttool.WEC.solve
-====================
-
-.. currentmodule:: wecopttool
-
-.. automethod:: WEC.solve

@@ -1,6 +1,0 @@
-wecopttool.wave\_excitation
-===========================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: wave_excitation

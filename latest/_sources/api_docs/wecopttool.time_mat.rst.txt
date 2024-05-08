@@ -1,6 +1,0 @@
-wecopttool.time\_mat
-====================
-
-.. currentmodule:: wecopttool
-
-.. autofunction:: time_mat

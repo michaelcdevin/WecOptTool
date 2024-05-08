@@ -1,6 +1,0 @@
-wecopttool.utilities.plot\_power\_flow
-======================================
-
-.. currentmodule:: wecopttool.utilities
-
-.. autofunction:: plot_power_flow
