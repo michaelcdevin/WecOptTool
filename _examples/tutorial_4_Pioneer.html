@@ -218,7 +218,7 @@ back to shore.</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f968da30e50&gt;
+&lt;matplotlib.legend.Legend at 0x7f7c2ae3f350&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -348,7 +348,7 @@ WARNING:capytaine.bodies.bodies:The rotation dof Pitch has been initialized arou
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[23:28:41] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> The rotation dof Pitch has been initialized around the origin of the domain <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">)</span>.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[20:58:53] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> The rotation dof Pitch has been initialized around the origin of the domain <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">)</span>.
 </pre></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -387,7 +387,7 @@ WARNING:wecopttool.core:center_of_mass already defined as [0.    0.    0.242].
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[23:28:42] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> center_of_mass already defined as <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.242</span><span style="font-weight: bold">]</span>.
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> center_of_mass already defined as <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.242</span><span style="font-weight: bold">]</span>.
 </pre></div>
 </div>
 <div class="nboutput docutils container">
@@ -403,6 +403,39 @@ WARNING:wecopttool.core:rotation_center already defined as [0.    0.    0.242].
 </div>
 <div class="output_area rendered_html docutils container">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> rotation_center already defined as <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>.    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.242</span><span style="font-weight: bold">]</span>.
+</pre></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING:wecopttool.core:FloatingBody has no inertia_matrix field. If the FloatingBody mass is defined, it will be used for calculating the inertia matrix here. Otherwise, the neutral buoyancy assumption will be used to auto-populate.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> FloatingBody has no inertia_matrix field. If the FloatingBody mass is defined, it will be used
+<span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         for calculating the inertia matrix here. Otherwise, the neutral buoyancy assumption will be
+<span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         used to auto-populate.
+</pre></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING:wecopttool.core:FloatingBody has no hydrostatic_stiffness field. Capytaine will auto-populate the hydrostatic stiffness based on the provided mesh.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> FloatingBody has no hydrostatic_stiffness field. Capytaine will auto-populate the hydrostatic
+<span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         stiffness based on the provided mesh.
 </pre></div>
 </div>
 <div class="nboutput docutils container">
@@ -428,7 +461,7 @@ This warning appears when the largest panel of this mesh has radius &gt; wavelen
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "452bf90b1b7e4f7eb2efdadbc0174a5f"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "e1db766e34024e4eb74f0a1404ace13d"}</script></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -470,6 +503,7 @@ Hydrostatic stiffness from experiment: 37204 N-m/rad
 <span class="n">ex_handles</span><span class="p">,</span> <span class="n">ex_labels</span> <span class="o">=</span> <span class="n">ax_ex</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
 <span class="n">ax_ex</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$\omega$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax_ex</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Wave Excitation Coefficients&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax_ex</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">fig_ex</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ex_handles</span><span class="p">,</span> <span class="n">ex_labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Added mass</span>
@@ -477,23 +511,23 @@ Hydrostatic stiffness from experiment: 37204 N-m/rad
     <span class="n">radiating_dof</span><span class="o">=</span><span class="s1">&#39;Pitch&#39;</span><span class="p">,</span> <span class="n">influenced_dof</span><span class="o">=</span><span class="s1">&#39;Pitch&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_am</span><span class="p">)</span>
 <span class="n">ax_am</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$\omega$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax_am</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Added Mass Coefficients&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax_am</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Radiation damping</span>
 <span class="n">bem_data</span><span class="o">.</span><span class="n">radiation_damping</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span>
     <span class="n">radiating_dof</span><span class="o">=</span><span class="s1">&#39;Pitch&#39;</span><span class="p">,</span> <span class="n">influenced_dof</span><span class="o">=</span><span class="s1">&#39;Pitch&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_rd</span><span class="p">)</span>
 <span class="n">ax_rd</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$\omega$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax_rd</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Radiation Damping Coefficients&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax_rd</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-Text(0.5, 1.0, &#39;Radiation Damping Coefficients&#39;)
-</pre></div></div>
+<img alt="../_images/_examples_tutorial_4_Pioneer_16_0.png" src="../_images/_examples_tutorial_4_Pioneer_16_0.png" />
+</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -502,18 +536,11 @@ Text(0.5, 1.0, &#39;Radiation Damping Coefficients&#39;)
 <img alt="../_images/_examples_tutorial_4_Pioneer_16_1.png" src="../_images/_examples_tutorial_4_Pioneer_16_1.png" />
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/_examples_tutorial_4_Pioneer_16_2.png" src="../_images/_examples_tutorial_4_Pioneer_16_2.png" />
-</div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/_examples_tutorial_4_Pioneer_16_3.png" src="../_images/_examples_tutorial_4_Pioneer_16_3.png" />
+<img alt="../_images/_examples_tutorial_4_Pioneer_16_2.png" src="../_images/_examples_tutorial_4_Pioneer_16_2.png" />
 </div>
 </div>
 </section>
@@ -797,7 +824,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Pitch&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[23:29:03] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Pitch"</span> has negative or close to zero terms. Shifting up damping terms <span style="font-weight: bold">[</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[20:59:14] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Pitch"</span> has negative or close to zero terms. Shifting up damping terms <span style="font-weight: bold">[</span>
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">113</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">137</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">147</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -836,6 +863,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Pitch&#34; has negative or c
   defvjp(anp.tanh,   lambda ans, x : lambda g: g / anp.cosh(x) **2)
 /opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/autograd/numpy/numpy_vjps.py:90: RuntimeWarning: overflow encountered in square
   defvjp(anp.tanh,   lambda ans, x : lambda g: g / anp.cosh(x) **2)
+/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/autograd/numpy/numpy_vjps.py:90: RuntimeWarning: overflow encountered in square
+  defvjp(anp.tanh,   lambda ans, x : lambda g: g / anp.cosh(x) **2)
+/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/autograd/numpy/numpy_vjps.py:90: RuntimeWarning: overflow encountered in square
+  defvjp(anp.tanh,   lambda ans, x : lambda g: g / anp.cosh(x) **2)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -844,10 +875,10 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Pitch&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -1.0050846486175666
-            Iterations: 19
-            Function evaluations: 21
-            Gradient evaluations: 19
+            Current function value: -1.0050846368368997
+            Iterations: 17
+            Function evaluations: 19
+            Gradient evaluations: 17
 Optimal average power: -100.51 W
 </pre></div></div>
 </div>
@@ -989,7 +1020,7 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Pitch&#34; has negative or c
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[23:30:36] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Pitch"</span> has negative or close to zero terms. Shifting up damping terms <span style="font-weight: bold">[</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[21:00:34] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Linear damping for DOF <span style="color: #008000; text-decoration-color: #008000">"Pitch"</span> has negative or close to zero terms. Shifting up damping terms <span style="font-weight: bold">[</span>
 <span style="color: #7fbfbf; text-decoration-color: #7fbfbf">           </span>         <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">113</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">137</span> <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">147</span><span style="font-weight: bold">]</span> to a minimum of <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1e-06</span> N/<span style="font-weight: bold">(</span>m/s<span style="font-weight: bold">)</span>
 </pre></div>
 </div>
@@ -1098,9 +1129,9 @@ WARNING:wecopttool.core:Linear damping for DOF &#34;Pitch&#34; has negative or c
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -3.016961273762983
+            Current function value: -2.948441826057
             Iterations: 15
-            Function evaluations: 16
+            Function evaluations: 17
             Gradient evaluations: 15
 </pre></div></div>
 </div>
@@ -1125,11 +1156,11 @@ Optimization terminated successfully    (Exit mode 0)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -2.983502791905613
+            Current function value: -3.0184295820307803
             Iterations: 14
             Function evaluations: 16
             Gradient evaluations: 14
-Optimal average power: -300.02 W
+Optimal average power: -298.34 W
 </pre></div></div>
 </div>
 </section>
@@ -1368,7 +1399,7 @@ Text(0.5, 0, &#39;Total simulation time [min]&#39;)
 </div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"b1eaefd60d664289ad876138d5ba920e": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "452bf90b1b7e4f7eb2efdadbc0174a5f": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_b1eaefd60d664289ad876138d5ba920e", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:20\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:20</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
+{"state": {"8ae06848fb504bf3aff3ede40edfb1ef": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e1db766e34024e4eb74f0a1404ace13d": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_8ae06848fb504bf3aff3ede40edfb1ef", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "Solving BEM problems \u001b[38;2;114;156;31m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[35m100%\u001b[0m \u001b[33m0:00:20\u001b[0m\n", "text/html": "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">Solving BEM problems <span style=\"color: #729c1f; text-decoration-color: #729c1f\">\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501</span> <span style=\"color: #800080; text-decoration-color: #800080\">100%</span> <span style=\"color: #808000; text-decoration-color: #808000\">0:00:20</span>\n</pre>\n"}}], "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}
 </script></section>
 </section>
 </section>

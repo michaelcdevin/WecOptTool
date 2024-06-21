@@ -199,7 +199,7 @@ each body separately with a heave DOF, combine them into a single object afterwa
 </section>
 <section id="Mesh-creation-of-the-float">
 <h4>Mesh creation of the float<a class="headerlink" href="#Mesh-creation-of-the-float" title="Link to this heading"></a></h4>
-<p>Here we create the mesh based on the dimensions provided by Oregon State University using <code class="docutils literal notranslate"><span class="pre">`pygmsh</span></code> &lt;<a class="reference external" href="https://pypi.org/project/pygmsh/">https://pypi.org/project/pygmsh/</a>&gt;`__. This is the same package used by <code class="docutils literal notranslate"><span class="pre">`geom.py</span></code> &lt;<a class="reference external" href="https://sandialabs.github.io/WecOptTool/api_docs/wecopttool.geom.html">https://sandialabs.github.io/WecOptTool/api_docs/wecopttool.geom.html</a>&gt;`__ containing the predefined WaveBot and AquaHarmonics meshes used in the previous tutorials.</p>
+<p>Here we create the mesh based on the dimensions provided by Oregon State University using <code class="docutils literal notranslate"><span class="pre">pygmsh</span></code>, available <a class="reference external" href="https://pypi.org/project/pygmsh/">here</a>. This is the same package used by <code class="docutils literal notranslate"><span class="pre">geom.py</span></code> (click <a class="reference external" href="https://sandialabs.github.io/WecOptTool/api_docs/wecopttool.geom.html">here</a> for API documentation) containing the predefined WaveBot and AquaHarmonics meshes used in the previous tutorials.</p>
 <p>The float has a hole where the spar passes through it, though OSU has found that this hole creates a large spike in the BEM results at about 4.5 rad/s. There is not much energy in the waves at this frequency in the wave spectrum we will be using, so this spike should not significantly affect our results. If you would like to remove this spike and create smoother BEM results, set <code class="docutils literal notranslate"><span class="pre">hole</span> <span class="pre">=</span> <span class="pre">False</span></code> in the cell below.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -911,7 +911,7 @@ time to equal 20 minutes. For this tutorial, the number of realizations has been
 </div>
 </div>
 <p>There are several analytical and numerical methods commonly used to model mooring system kinematics for offshore systems, ranging from static analysis to determine equilibrium forces, all the way to FEA used to calculate the fully dynamic response of the mooring system components. For this design problem, we are mostly concerned with modeling the correct response of LUPA due to operational waves, so the high-fidelity methods are unnecessary at this design stage. While a purely linearized
-approach is common here, the symmetry of the taut lines in this current system allows us to instead use an analytical solution derived by Al-Solihat and Nahon (<a class="reference external" href="https://doi.org/10.1080/17445302.2015.1089052">https://doi.org/10.1080/17445302.2015.1089052</a>), which allows us to capture nonlinear mooring effects and off-diagonal terms in the mooring stiffness matrix without any significant increase in computation time.</p>
+approach is common here, the symmetry of the taut lines in this current system allows us to instead use an analytical solution derived by Al-Solihat and Nahon (<a class="reference external" href="https://doi.org/10.1080/17445302.2015.1089052">link</a>), which allows us to capture nonlinear mooring effects and off-diagonal terms in the mooring stiffness matrix without any significant increase in computation time.</p>
 <p>This solution takes an exact analysis of the derivatives of the classic elastic catenary equations and simplifies them by assuming the taut lines have no sag and negligible mass, allowing for the differential changes of the horizontal and vertical restoring force to be calculated as</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial F_{hor}}{\partial l} = K_{axial}\textup{cos}^2 \theta + \frac{T}{L} \textup{sin}^2 \theta\]</div>
@@ -1104,16 +1104,16 @@ on the mooring/tether line, so we had to explicitly model the buoyancy, gravity,
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.011326569682792595
-            Iterations: 54
-            Function evaluations: 55
-            Gradient evaluations: 54
+            Current function value: -0.011326535913414107
+            Iterations: 51
+            Function evaluations: 52
+            Gradient evaluations: 51
 Optimization terminated successfully    (Exit mode 0)
-            Current function value: -0.011326464361354713
-            Iterations: 54
-            Function evaluations: 55
-            Gradient evaluations: 54
-Optimal average electrical power: -1.1326517022073654 W
+            Current function value: -0.011327105971017944
+            Iterations: 52
+            Function evaluations: 53
+            Gradient evaluations: 52
+Optimal average electrical power: -1.1326820942216025 W
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1243,7 +1243,7 @@ velocities (or their rotational equivalents) are nowhere near the generator maxi
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(-18.828541962514677, 2.9416850907242225)
+(-13.403485898169357, 2.0393031681700844)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
