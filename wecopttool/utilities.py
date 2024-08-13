@@ -153,14 +153,14 @@ def plot_bode_impedance(impedance: DataArray,
     influenced_dofs = impedance.influenced_dof.values
     mag = 20.0 * np.log10(np.abs(impedance))
     phase = np.rad2deg(np.unwrap(np.angle(impedance)))
-    freq = impedance.omega.values/2/np.pi
+    freq = impedance.omega.values/2/np.pi   
     if fig_axes is None:
         fig, axes = plt.subplots(
-            2*len(radiating_dofs),
+            2*len(radiating_dofs), 
             len(influenced_dofs),
-            tight_layout=True,
-            sharex=True,
-            figsize=(3*len(radiating_dofs), 3*len(influenced_dofs)),
+            tight_layout=True, 
+            sharex=True, 
+            figsize=(3*len(radiating_dofs), 3*len(influenced_dofs)), 
             squeeze=False
             )
     else:
@@ -276,7 +276,7 @@ def calculate_power_flows(wec,
     return power_flows
 
 
-def plot_power_flow(power_flows: dict[str, float],
+def plot_power_flow(power_flows: dict[str, float], 
     tolerance: Optional[float] = None,
 )-> tuple(Figure, Axes):
     """Plot power flow through a WEC as Sankey diagram.
