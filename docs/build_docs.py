@@ -78,22 +78,15 @@ def build_doc(version, tag, home_branch, build):
             f"git checkout {home_branch}", shell=True)
 
 
-def move_pages(dest_dir=None):
-    if dest_dir is None:
-        print(f"Moving HTML pages to {os.path.join(docs_dir, 'pages')}...")
-        shutil.copytree(
-            html_dir, os.path.join(docs_dir, 'pages'))
-    else:
-        print(f"Moving HTML pages to {os.path.join(docs_dir, 'pages', dest_dir)}...")
-        shutil.copytree(
-            html_dir, os.path.join(docs_dir, 'pages', dest_dir))
-    shutil.rmtree(build_dir, ignore_errors=True)
+def move_pages():
+    print(f"Moving HTML pages to {os.path.join(docs_dir, 'pages')}...")
+    shutil.copytree(html_dir, os.path.join(docs_dir, 'pages'))
     print('Done.')
 
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    build = args.build[0]
+    build = args.build
     if build == 'debug':
         print(f'Building docs in current branch...')
         build_doc('latest', '', '', build)
@@ -107,5 +100,6 @@ if __name__ == '__main__':
         move_pages()
         for name, tag in versions.items():
             if name != home_name:
-                build_doc(name, tag, home_branch, build)
-                move_pages(dest_dir=name)
+                build_doc(name, tag, home_branch)
+                move_pages()
+    shutil.rmtree(html_dir)
