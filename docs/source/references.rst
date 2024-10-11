@@ -22,4 +22,3 @@ Bibliography
     Strofer:2023vw
     Coe2020Initial
     DEVIN2024119124
-    Coe:2024aa
