@@ -2187,17 +2187,13 @@ def run_bem(
     wec_im = fb.copy()
     wec_im = set_fb_centers(wec_im, rho=rho)
     if not hasattr(wec_im, 'inertia_matrix'):
-        if wec_im.mass is None:
-            wec_im.mass = rho*wec_im.immersed_part().volume
-            _log.warning('FloatingBody has no inertia_matrix or mass ' +
-                     'field. The mass will be calculated based on a ' +
-                     'neutral buoyancy assumption. The inertia matrix ' +
-                     'will be calculated assuming a solid and constant ' +
-                     'density body.')
-        else:
-            _log.warning('FloatingBody has no inertia_matrix field. ' + 
-                     'The FloatingBody mass is defined and will be ' +
-                     'used for calculating the inertia matrix.')
+        _log.warning('FloatingBody has no inertia_matrix field. ' + 
+                     'If the FloatingBody mass is defined, it will be ' + 
+                     'used for calculating the inertia matrix here. ' + 
+                     'Otherwise, the neutral buoyancy assumption will ' + 
+                     'be used to auto-populate (inertial properties ' +
+                     'based only on the immersed part). We recommend ' +
+                     'inputting the correct inertial properties.')
         wec_im.inertia_matrix = wec_im.compute_rigid_body_inertia(rho=rho)
     wec_im = wec_im.immersed_part()
     wec_im.name = f"{wec_im.name}_immersed"
@@ -2602,7 +2598,7 @@ def set_fb_centers(
                 log_str = (
                     "Using the center of gravity (COG) as the rotation center " +
                     "for hydrostatics. Note that the hydrostatics do not use the " +
-                    "axes defined by the FloatingBody degrees of freedom, and the " + 
+                    "axes defined by the Floating Body degrees of freedom, and the " + 
                     "rotation center should be set manually when using Capytaine to " + 
                     "calculate hydrostatics about an axis other than the COG.")
             setattr(fb, property, def_val)
