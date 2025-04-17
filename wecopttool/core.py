@@ -762,7 +762,7 @@ class WEC:
                 wave = wave.squeeze(dim='realization')
             except KeyError:
                 pass
-                      
+
             # objective function
             sign = -1.0 if maximize else 1.0
 
