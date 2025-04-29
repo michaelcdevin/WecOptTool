@@ -247,13 +247,11 @@ def irregular_wave(efth: DataArray,
                    seed: Optional[float] = None,) -> DataArray:
     """Create a complex frequency-domain wave elevation from a spectrum. 
 
-    The spectrum is a :py:class:`xarray.DataArray` in the format used
-    by :py:class:`wavespectra.SpecArray`.
     The spectrum is a :py:class:`xarray.DataArray` in the format used 
     by :py:class:`wavespectra.SpecArray`. For generating wave spectra 
     with directional spreading, see 
     :py:class:`wavespectra.construction.direction`.
-    
+
     .. note:: The frequencies must be evenly-spaced with spacing equal
               to the first frequency. This is not always the case when
               e.g. reading from buoy data. Use interpolation as
