@@ -2188,7 +2188,7 @@ def run_bem(
     wec_im = set_fb_centers(wec_im, rho=rho)
     if not hasattr(wec_im, 'inertia_matrix'):
         if wec_im.mass is None:
-            wec_im.mass = rho*wec_im.copy().keep_immersed_part().volume
+            wec_im.mass = rho*wec_im.immersed_part().volume
             _log.warning('FloatingBody has no inertia_matrix or mass ' +
                      'field. The mass will be calculated based on a ' +
                      'neutral buoyancy assumption. The inertia matrix ' +
@@ -2199,7 +2199,7 @@ def run_bem(
                      'The FloatingBody mass is defined and will be ' +
                      'used for calculating the inertia matrix.')
         wec_im.inertia_matrix = wec_im.compute_rigid_body_inertia(rho=rho)
-    wec_im = wec_im.keep_immersed_part()
+    wec_im = wec_im.immersed_part()
     wec_im.name = f"{wec_im.name}_immersed"
     if not hasattr(wec_im, 'hydrostatic_stiffness'):
         _log.warning('FloatingBody has no hydrostatic_stiffness field. ' +
