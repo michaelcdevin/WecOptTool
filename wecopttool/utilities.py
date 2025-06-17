@@ -10,6 +10,7 @@ __all__ = [
     "plot_bode_impedance",
     "calculate_power_flows",
     "plot_power_flow",
+    "linear_solve",
     "create_dataarray",
 ]
 
@@ -152,14 +153,14 @@ def plot_bode_impedance(impedance: DataArray,
     influenced_dofs = impedance.influenced_dof.values
     mag = 20.0 * np.log10(np.abs(impedance))
     phase = np.rad2deg(np.unwrap(np.angle(impedance)))
-    freq = impedance.omega.values/2/np.pi   
+    freq = impedance.omega.values/2/np.pi
     if fig_axes is None:
         fig, axes = plt.subplots(
-            2*len(radiating_dofs), 
+            2*len(radiating_dofs),
             len(influenced_dofs),
-            tight_layout=True, 
-            sharex=True, 
-            figsize=(3*len(radiating_dofs), 3*len(influenced_dofs)), 
+            tight_layout=True,
+            sharex=True,
+            figsize=(3*len(radiating_dofs), 3*len(influenced_dofs)),
             squeeze=False
             )
     else:
@@ -275,7 +276,7 @@ def calculate_power_flows(wec,
     return power_flows
 
 
-def plot_power_flow(power_flows: dict[str, float], 
+def plot_power_flow(power_flows: dict[str, float],
     tolerance: Optional[float] = None,
 )-> tuple(Figure, Axes):
     """Plot power flow through a WEC as Sankey diagram.
@@ -372,6 +373,91 @@ def plot_power_flow(power_flows: dict[str, float],
     return fig, ax
 
 
+def linear_solve(bem_data, pto_impedance, wave_realization, kinematics, nsubsteps=1):
+    """Solve a linear problem in the frequency domain with optimal
+    controller.
+
+    Parameters
+    ----------
+    bem_data
+        Linear hydrodynamic coefficients obtained using the boundary
+        element method (BEM) code Capytaine, with sign convention
+        corrected.
+    pto_impedance
+        Matrix representing the PTO impedance.
+        Size 2*n_dof.
+    wave_realization
+        :py:class:`xarray.Dataset` with the structure and elements
+        shown by :py:mod:`wecopttool.waves`.
+    kinematics
+        Matrix that transforms state from WEC to PTO frame.
+    nsubsteps
+        Number of steps between the default (implied) time steps.
+        A value of :python:`1` corresponds to the default step
+        length.
+
+    Returns
+    -------
+    p_opt_average
+        Average power using optimal controller.
+    tdom
+        Time domain results.
+    fdom
+        Frequency domain results.
+    thevenin
+        Thevenin equivalent system.
+    """
+    # BEM: intrinsic impedance and excitation force
+    bem_data = add_linear_friction(bem_data, friction = None)
+    bem_data = check_radiation_damping(bem_data)
+    intrinsic_impedance = hydrodynamic_impedance(bem_data)
+    Zi = intrinsic_impedance.data
+    wave = np.expand_dims(wave_realization, axis=-1)
+    Fe = np.expand_dims((np.conjugate(bem_data.excitation_force) * wave).sum(dim="wave_direction").data, -1)
+
+    # PTO: Impedance and kinematics
+    Zp = pto_impedance.transpose(2,0,1)
+    pto_ndof = int(Zp.shape[1]/2)
+    if pto_ndof > 1:
+        raise NotImplementedError("Currently `linear_solve` only supports 1-DOF PTOs.")
+    Zp_fu = Zp[:, :pto_ndof, :pto_ndof]
+    Zp_vu = Zp[:, pto_ndof:, :pto_ndof]
+    Zp_fi = Zp[:, :pto_ndof, pto_ndof:]
+    Zp_vi = Zp[:, pto_ndof:, pto_ndof:]
+    K = kinematics
+
+    # Intrinsic impedance and excitation force in PTO space
+    Zi_p = inv(K @ inv(Zi) @ K.T)
+    Fe_p = Zi_p @ K @ inv(Zi) @ Fe
+
+    # Thévenin equivalent circuit
+    D = inv(Zi_p-Zp_fu)
+    Vth = D @ Zp_vu @ Fe_p
+    Zth = Zp_vi + D @ Zp_fi @ Zp_vu
+    Ith = inv(np.real(Zth)) @ Vth / 2 # should be positive
+
+    # Frequency Domain: optimal current and voltage
+    I_opt = -Ith
+    V_opt = np.conjugate(Zth) @ Ith
+
+    # Time Domain: optimal current and voltage
+    freq = bem_data.omega/(2*np.pi)
+    f1, nfreq = frequency_parameters(freq, False)
+    i_opt = fd_to_td(np.squeeze(I_opt), f1, nfreq, nsubsteps, False)
+    v_opt = fd_to_td(np.squeeze(V_opt), f1, nfreq, nsubsteps, False)
+
+    # Time Domain: optimal power
+    p_opt = i_opt * v_opt
+    p_opt_average = np.mean(p_opt)
+
+    # return
+    tdom = {"time": time(f1, nfreq, nsubsteps), "trans_flo": i_opt, "trans_eff": v_opt, "power": p_opt}
+    fdom = {"frequency": freq, "trans_flo": I_opt, "trans_eff": V_opt}
+    thevenin = {"frequency": freq, "impedance": Zth, "trans_flo": Ith, "trans_eff": Vth}
+
+    return p_opt_average, tdom, fdom, thevenin
+
+  
 def create_dataarray(
     impedance: ArrayLike, 
     exc_coeff: ArrayLike, 
